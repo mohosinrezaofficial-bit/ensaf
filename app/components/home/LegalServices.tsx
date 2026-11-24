@@ -2,9 +2,11 @@
 "use client";
 
 import { motion } from "motion/react";
+import Link from "next/link";
 
 const services = [
     {
+        slug: "criminal-law",
         title: "Criminal Law",
         description:
             "Defense representations for various criminal charges. Investigations, evidence analysis, and bail applications.",
@@ -16,6 +18,7 @@ const services = [
         ),
     },
     {
+        slug: "corporate-law",
         title: "Corporate Law",
         description:
             "Professional legal guidance for businesses, corporate governance, contracts, and commercial disputes.",
@@ -33,6 +36,7 @@ const services = [
         ),
     },
     {
+        slug: "family-law",
         title: "Family Law",
         description:
             "Experienced legal assistance with family disputes, divorce proceedings, child custody, and family matters.",
@@ -54,6 +58,7 @@ const services = [
         ),
     },
     {
+        slug: "real-estate",
         title: "Real Estate Law",
         description:
             "Legal representation for property transactions, ownership disputes, real estate contracts, and property rights.",
@@ -65,6 +70,7 @@ const services = [
         ),
     },
     {
+        slug: "personal-injury",
         title: "Personal Injury Law",
         description:
             "Dedicated legal representation for personal injury claims, accident cases, compensation, and liability disputes.",
@@ -76,6 +82,7 @@ const services = [
         ),
     },
     {
+        slug: "health-care",
         title: "Health Care Policy",
         description:
             "Legal support for healthcare regulations, medical compliance, patient rights, and healthcare policy matters.",
@@ -243,8 +250,8 @@ export default function LegalServices() {
                                     </p>
 
                                     {/* Read More */}
-                                    <a
-                                        href="#"
+                                    <Link
+                                        href={`/services/${service.slug}`}
                                         className={`
                       inline-flex items-center gap-2
                       text-sm font-semibold
@@ -265,7 +272,7 @@ export default function LegalServices() {
                                         >
                                             →
                                         </motion.span>
-                                    </a>
+                                    </Link>
 
                                 </div>
                             </motion.div>

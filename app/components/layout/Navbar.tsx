@@ -18,30 +18,18 @@ const navLinks: NavItem[] = [
   {
     name: "About Us",
     href: "/about",
-    children: [
-      { name: "Our Story", href: "/about" },
-      { name: "Our Attorneys", href: "/attorneys" },
-      { name: "Our Team", href: "/team" },
-    ],
+
   },
   {
     name: "Service",
     href: "/services",
     children: [
-      { name: "Family Law", href: "/services/family-law" },
       { name: "Criminal Law", href: "/services/criminal-law" },
-      { name: "Business Law", href: "/services/business-law" },
+      { name: "Corporate Law", href: "/services/corporate-law" },
+      { name: "Family Law", href: "/services/family-law" },
       { name: "Real Estate Law", href: "/services/real-estate" },
-    ],
-  },
-  {
-    name: "Pages",
-    href: "/pages",
-    children: [
-      { name: "Our Attorneys", href: "/attorneys" },
-      { name: "Testimonials", href: "/testimonials" },
-      { name: "Pricing", href: "/pricing" },
-      { name: "FAQ", href: "/faq" },
+      { name: "Personal Injury Law", href: "/services/personal-injury" },
+      { name: "Health Care Policy", href: "/services/health-care" },
     ],
   },
   
