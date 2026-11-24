@@ -316,7 +316,6 @@ export default function Footer() {
       <div className="bg-[#304f51] px-5 py-6 text-center">
 
         <p className="text-sm text-white sm:text-base">
-          Copyright © {new Date().getFullYear()}{" "}
           <span className="font-semibold text-[#bd9568]">
             Ensaf.
           </span>{" "}
