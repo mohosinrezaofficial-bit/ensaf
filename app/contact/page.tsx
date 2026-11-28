@@ -1,383 +1,545 @@
+
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
-import { motion } from "motion/react";
 import { useState } from "react";
+import type { FormEvent } from "react";
 
+import {
+  MapPin,
+  Phone,
+  Mail,
+  Clock,
+  ArrowUpRight,
+  Scale,
+  ShieldCheck,
+  MessageSquare,
+} from "lucide-react";
+
+// CONTACT INFORMATION
 const contactInfo = [
   {
-    number: "01",
+    icon: MapPin,
     title: "Visit Our Office",
     detail: "123 Legal Street, New York, NY 10001",
-    link: "https://maps.google.com/?q=123+Legal+Street+New+York",
-    label: "Get Directions",
+    action: "Get Directions",
+    href: "https://maps.google.com/?q=New+York",
   },
   {
-    number: "02",
+    icon: Phone,
     title: "Call Our Office",
     detail: "+1 (234) 567-890",
-    link: "tel:+1234567890",
-    label: "Call Us",
+    action: "Call Us",
+    href: "tel:+1234567890",
   },
   {
-    number: "03",
+    icon: Mail,
     title: "Email Our Team",
     detail: "info@lawfirm.com",
-    link: "mailto:info@lawfirm.com",
-    label: "Send Email",
+    action: "Send Email",
+    href: "mailto:info@lawfirm.com",
   },
 ];
 
-export default function Contact() {
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    subject: "",
-    message: "",
-  });
+// INPUT STYLE
+const inputStyle =
+  "w-full rounded-[4px] border border-[#e4e5df] bg-white px-4 py-3.5 text-sm text-[#263d36] outline-none transition placeholder:text-gray-400 focus:border-[#263d36]";
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+export default function Contact() {
+  const [submitted, setSubmitted] = useState(false);
+
+  // FORM SUBMIT
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const mailto = `mailto:info@lawfirm.com?subject=${encodeURIComponent(
-      form.subject || "New Consultation Request"
-    )}&body=${encodeURIComponent(
-      `Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\n\nMessage:\n${form.message}`
-    )}`;
+    const form = new FormData(e.currentTarget);
 
-    window.location.href = mailto;
-  };
+    const subject = encodeURIComponent(
+      `New Legal Enquiry - ${form.get("service")}`
+    );
+
+    const body = encodeURIComponent(
+      `Name: ${form.get("name")}
+Email: ${form.get("email")}
+Phone: ${form.get("phone")}
+Service: ${form.get("service")}
+Subject: ${form.get("subject")}
+
+Message:
+${form.get("message")}`
+    );
+
+    window.location.href =
+      `mailto:info@lawfirm.com?subject=${subject}&body=${body}`;
+
+    setSubmitted(true);
+  }
 
   return (
-    <main className="overflow-hidden bg-white text-[#252525]">
+    <main className="overflow-hidden bg-[#faf9f6] font-sans text-[#263d36]">
 
-      {/* HERO */}
-      <section className="relative bg-[#304f51]">
-        <div className="mx-auto grid min-h-[430px] max-w-[1400px] items-center gap-12 px-5 py-20 lg:grid-cols-2 lg:px-10">
-          <motion.div
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-          >
-            <p className="text-xs font-semibold uppercase tracking-[3px] text-[#d0a16c]">
-              Contact Us
+      {/* ================= HERO ================= */}
+
+      <section className="border-b border-[#e9e7df] bg-[#263d36]">
+        <div className="mx-auto grid max-w-[1400px] items-center gap-12 px-5 py-20 md:px-10 md:py-28 lg:grid-cols-2">
+
+          <div>
+            <p className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[2px] text-[#c5a47e]">
+              <span className="h-px w-8 bg-[#c5a47e]" />
+              Contact Our Firm
             </p>
 
-            <h1 className="mt-6 font-serif text-5xl leading-[1.12] text-white md:text-6xl lg:text-[72px]">
-              Lets Start a
-              <span className="block italic text-[#d0a16c]">
-                Conversation.
+            <h1 className="mt-7 max-w-[650px] text-4xl font-semibold leading-[1.2] tracking-tight text-white md:text-5xl lg:text-[62px]">
+              Let&apos;s Talk About
+              <span className="block text-[#c5a47e]">
+                Your Legal Needs.
               </span>
             </h1>
 
-            <p className="mt-7 max-w-[500px] text-base leading-8 text-white/75">
-              Every legal matter starts with a conversation. Tell us
-              what you are facing, and our team will help you understand
-              your options and the next steps.
+            <p className="mt-6 max-w-[520px] text-sm leading-8 text-white/70 md:text-base">
+              Whether you need legal advice, representation, or
+              guidance on an important matter, our team is ready
+              to listen and help you understand your options.
             </p>
-          </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="relative h-[300px] sm:h-[380px]"
-          >
-            <Image
+            <div className="mt-9 flex flex-wrap items-center gap-5">
+              <a
+                href="#contact-form"
+                className="inline-flex items-center gap-3 rounded-[4px] bg-[#c5a47e] px-7 py-4 text-xs font-semibold uppercase tracking-wider text-[#263d36] transition hover:bg-white"
+              >
+                Make An Enquiry
+                <ArrowUpRight size={17} />
+              </a>
+
+              <a
+                href="tel:+1234567890"
+                className="text-sm font-medium text-white transition hover:text-[#c5a47e]"
+              >
+                +1 (234) 567-890
+              </a>
+            </div>
+          </div>
+
+          {/* HERO IMAGE */}
+
+          <div className="relative h-[320px] overflow-hidden rounded-[4px] md:h-[430px]">
+            <img
               src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1200&q=90"
-              alt="Professional law office"
-              fill
-              priority
-              unoptimized
-              className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 50vw"
+              alt="Professional law firm office"
+              className="h-full w-full object-cover"
             />
-          </motion.div>
+          </div>
+
         </div>
       </section>
 
-      {/* CONTACT INTRO */}
+      {/* ================= CONTACT CONTENT ================= */}
+
       <section className="py-20 md:py-28">
-        <div className="mx-auto max-w-[1400px] px-5 lg:px-10">
-          <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+        <div className="mx-auto grid max-w-[1400px] gap-12 px-5 md:px-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
 
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[3px] text-[#bd9568]">
-                Get In Touch
-              </p>
+          {/* LEFT SIDE */}
 
-              <h2 className="mt-5 font-serif text-4xl leading-tight text-[#304f51] md:text-5xl">
-                We are Here When You Need Us.
-              </h2>
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[2px] text-[#a88965]">
+              Get In Touch
+            </p>
 
-              <p className="mt-6 leading-8 text-gray-500">
-                Whether you need legal advice, representation, or simply
-                want to discuss your situation, we are ready to listen.
-                Reach out using the contact details below or send us a
-                message.
-              </p>
+            <h2 className="mt-5 max-w-[450px] text-3xl font-semibold leading-snug tracking-tight md:text-4xl">
+              We&apos;re Here When You Need Us.
+            </h2>
 
-              <div className="mt-12 space-y-9">
-                {contactInfo.map((item, index) => (
-                  <motion.div
-                    key={item.number}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.12 }}
-                    className="flex gap-5 border-b border-gray-200 pb-8"
+            <p className="mt-5 max-w-[470px] text-sm leading-8 text-gray-500">
+              We understand that every legal matter is different.
+              Contact our team to arrange a consultation and
+              discuss the best way forward.
+            </p>
+
+            {/* CONTACT DETAILS */}
+
+            <div className="mt-10 space-y-4">
+              {contactInfo.map((item) => {
+                const Icon = item.icon;
+
+                return (
+                  <div
+                    key={item.title}
+                    className="group rounded-md border border-[#e9e7df] bg-white p-5 transition duration-200 hover:border-[#c5a47e] sm:p-6"
                   >
-                    <span className="font-serif text-2xl text-[#bd9568]">
-                      {item.number}
-                    </span>
+                    <div className="flex items-start gap-4">
 
-                    <div>
-                      <h3 className="font-serif text-xl text-[#304f51]">
-                        {item.title}
-                      </h3>
+                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[4px] bg-[#f3f2ec] text-[#263d36] transition group-hover:bg-[#263d36] group-hover:text-white">
+                        <Icon size={21} strokeWidth={1.7} />
+                      </div>
 
-                      <p className="mt-2 text-sm leading-7 text-gray-500">
-                        {item.detail}
-                      </p>
+                      <div className="min-w-0 flex-1">
+                        <h3 className="text-sm font-semibold">
+                          {item.title}
+                        </h3>
 
-                      <a
-                        href={item.link}
-                        target={
-                          item.link.startsWith("https") ? "_blank" : undefined
-                        }
-                        rel={
-                          item.link.startsWith("https")
-                            ? "noopener noreferrer"
-                            : undefined
-                        }
-                        className="mt-3 inline-block text-xs font-bold uppercase tracking-[1.5px] text-[#bd9568] transition hover:text-[#304f51]"
-                      >
-                        {item.label} ↗
-                      </a>
+                        <p className="mt-2 break-words text-sm leading-6 text-gray-500">
+                          {item.detail}
+                        </p>
+
+                        <a
+                          href={item.href}
+                          target={
+                            item.href.startsWith("https")
+                              ? "_blank"
+                              : undefined
+                          }
+                          rel="noreferrer"
+                          className="mt-3 inline-flex items-center gap-2 text-xs font-semibold text-[#a88965] transition hover:text-[#263d36]"
+                        >
+                          {item.action}
+                          <ArrowUpRight size={14} />
+                        </a>
+                      </div>
+
                     </div>
-                  </motion.div>
-                ))}
-              </div>
+                  </div>
+                );
+              })}
             </div>
 
-            {/* CONTACT FORM */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
-              className="bg-[#f6f6f3] p-7 md:p-12"
-            >
-              <p className="text-xs font-semibold uppercase tracking-[3px] text-[#bd9568]">
-                Send Us a Message
+            {/* OFFICE HOURS */}
+
+            <div className="mt-7 rounded-md border border-[#e9e7df] bg-[#f3f2ec] p-6">
+
+              <div className="flex items-center gap-3">
+                <Clock size={20} />
+                <h3 className="text-sm font-semibold">
+                  Office Hours
+                </h3>
+              </div>
+
+              <div className="mt-5 space-y-3 text-sm text-gray-500">
+                <div className="flex justify-between gap-3">
+                  <span>Monday - Friday</span>
+                  <span className="font-medium text-[#263d36]">
+                    9:00 AM - 5:00 PM
+                  </span>
+                </div>
+
+                <div className="flex justify-between gap-3">
+                  <span>Saturday - Sunday</span>
+                  <span className="font-medium text-[#263d36]">
+                    Closed
+                  </span>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          {/* RIGHT SIDE - FORM */}
+
+          <div
+            id="contact-form"
+            className="rounded-md border border-[#e9e7df] bg-white p-6 sm:p-9 md:p-11"
+          >
+
+            <div className="border-b border-[#e9e7df] pb-7">
+              <p className="text-xs font-semibold uppercase tracking-[2px] text-[#a88965]">
+                Send Us A Message
               </p>
 
-              <h2 className="mt-4 font-serif text-3xl text-[#304f51] md:text-4xl">
-                Tell Us About Your Legal Needs.
+              <h2 className="mt-4 text-2xl font-semibold tracking-tight md:text-3xl">
+                Tell Us How We Can Help.
               </h2>
 
-              <p className="mt-4 text-sm leading-7 text-gray-500">
-                Fill out the form below. Our team will get back to you
-                as soon as possible.
+              <p className="mt-3 text-sm leading-7 text-gray-500">
+                Fill out the form below and a member of our team
+                will get back to you.
               </p>
+            </div>
 
-              <form onSubmit={handleSubmit} className="mt-9 space-y-6">
-                <div className="grid gap-6 sm:grid-cols-2">
-                  <div>
-                    <label
-                      htmlFor="name"
-                      className="mb-3 block text-xs font-bold uppercase tracking-wider text-[#304f51]"
-                    >
-                      Full Name *
-                    </label>
-                    <input
-                      id="name"
-                      type="text"
-                      required
-                      value={form.name}
-                      onChange={(e) =>
-                        setForm({ ...form, name: e.target.value })
-                      }
-                      placeholder="Your full name"
-                      className="w-full border-b border-gray-300 bg-transparent px-0 py-3 text-sm outline-none transition placeholder:text-gray-400 focus:border-[#bd9568]"
-                    />
-                  </div>
+            <form
+              onSubmit={handleSubmit}
+              className="mt-8 space-y-6"
+            >
 
-                  <div>
-                    <label
-                      htmlFor="email"
-                      className="mb-3 block text-xs font-bold uppercase tracking-wider text-[#304f51]"
-                    >
-                      Email Address *
-                    </label>
-                    <input
-                      id="email"
-                      type="email"
-                      required
-                      value={form.email}
-                      onChange={(e) =>
-                        setForm({ ...form, email: e.target.value })
-                      }
-                      placeholder="Your email address"
-                      className="w-full border-b border-gray-300 bg-transparent px-0 py-3 text-sm outline-none transition placeholder:text-gray-400 focus:border-[#bd9568]"
-                    />
-                  </div>
-                </div>
+              {/* NAME + EMAIL */}
 
-                <div className="grid gap-6 sm:grid-cols-2">
-                  <div>
-                    <label
-                      htmlFor="phone"
-                      className="mb-3 block text-xs font-bold uppercase tracking-wider text-[#304f51]"
-                    >
-                      Phone Number
-                    </label>
-                    <input
-                      id="phone"
-                      type="tel"
-                      value={form.phone}
-                      onChange={(e) =>
-                        setForm({ ...form, phone: e.target.value })
-                      }
-                      placeholder="Your phone number"
-                      className="w-full border-b border-gray-300 bg-transparent px-0 py-3 text-sm outline-none transition placeholder:text-gray-400 focus:border-[#bd9568]"
-                    />
-                  </div>
-
-                  <div>
-                    <label
-                      htmlFor="subject"
-                      className="mb-3 block text-xs font-bold uppercase tracking-wider text-[#304f51]"
-                    >
-                      Subject *
-                    </label>
-                    <select
-                      id="subject"
-                      required
-                      value={form.subject}
-                      onChange={(e) =>
-                        setForm({ ...form, subject: e.target.value })
-                      }
-                      className="w-full border-b border-gray-300 bg-transparent px-0 py-3 text-sm text-gray-500 outline-none focus:border-[#bd9568]"
-                    >
-                      <option value="">Select a subject</option>
-                      <option value="Business Law">Business Law</option>
-                      <option value="Family Law">Family Law</option>
-                      <option value="Criminal Defense">Criminal Defense</option>
-                      <option value="Real Estate Law">Real Estate Law</option>
-                      <option value="Personal Injury">Personal Injury</option>
-                      <option value="Other Legal Matter">Other</option>
-                    </select>
-                  </div>
-                </div>
+              <div className="grid gap-5 sm:grid-cols-2">
 
                 <div>
-                  <label
-                    htmlFor="message"
-                    className="mb-3 block text-xs font-bold uppercase tracking-wider text-[#304f51]"
-                  >
-                    Your Message *
+                  <label className="mb-2.5 block text-xs font-semibold">
+                    Full Name <span className="text-red-500">*</span>
                   </label>
-                  <textarea
-                    id="message"
-                    rows={5}
+
+                  <input
+                    name="name"
+                    type="text"
                     required
-                    value={form.message}
-                    onChange={(e) =>
-                      setForm({ ...form, message: e.target.value })
-                    }
-                    placeholder="Tell us briefly about your legal matter..."
-                    className="w-full resize-none border-b border-gray-300 bg-transparent px-0 py-3 text-sm outline-none transition placeholder:text-gray-400 focus:border-[#bd9568]"
+                    placeholder="Your full name"
+                    className={inputStyle}
                   />
                 </div>
 
-                <button
-                  type="submit"
-                  className="flex w-full items-center justify-between bg-[#304f51] px-7 py-5 text-xs font-bold uppercase tracking-[2px] text-white transition hover:bg-[#bd9568]"
-                >
-                  Send Your Message
-                  <span className="text-lg">↗</span>
-                </button>
+                <div>
+                  <label className="mb-2.5 block text-xs font-semibold">
+                    Email Address <span className="text-red-500">*</span>
+                  </label>
 
-                <p className="text-xs leading-6 text-gray-400">
-                  Please do not include confidential or sensitive
-                  information in this initial inquiry.
+                  <input
+                    name="email"
+                    type="email"
+                    required
+                    placeholder="Your email address"
+                    className={inputStyle}
+                  />
+                </div>
+
+              </div>
+
+              {/* PHONE + SERVICE */}
+
+              <div className="grid gap-5 sm:grid-cols-2">
+
+                <div>
+                  <label className="mb-2.5 block text-xs font-semibold">
+                    Phone Number
+                  </label>
+
+                  <input
+                    name="phone"
+                    type="tel"
+                    placeholder="Your phone number"
+                    className={inputStyle}
+                  />
+                </div>
+
+                <div>
+                  <label className="mb-2.5 block text-xs font-semibold">
+                    Legal Service <span className="text-red-500">*</span>
+                  </label>
+
+                  <select
+                    name="service"
+                    required
+                    defaultValue=""
+                    className={inputStyle}
+                  >
+                    <option value="" disabled>
+                      Select a service
+                    </option>
+                    <option>Family Law</option>
+                    <option>Business Law</option>
+                    <option>Criminal Defense</option>
+                    <option>Real Estate Law</option>
+                    <option>Personal Injury</option>
+                    <option>Other Legal Matter</option>
+                  </select>
+                </div>
+
+              </div>
+
+              {/* SUBJECT */}
+
+              <div>
+                <label className="mb-2.5 block text-xs font-semibold">
+                  Subject
+                </label>
+
+                <input
+                  name="subject"
+                  type="text"
+                  placeholder="Enter subject"
+                  className={inputStyle}
+                />
+              </div>
+
+              {/* MESSAGE */}
+
+              <div>
+                <label className="mb-2.5 block text-xs font-semibold">
+                  Your Message <span className="text-red-500">*</span>
+                </label>
+
+                <textarea
+                  name="message"
+                  required
+                  rows={6}
+                  placeholder="Tell us about your legal matter..."
+                  className={`${inputStyle} resize-none`}
+                />
+              </div>
+
+              {/* SUBMIT */}
+
+              <button
+                type="submit"
+                className="flex w-full items-center justify-between rounded-[4px] bg-[#263d36] px-7 py-4 text-xs font-semibold uppercase tracking-[1.5px] text-white transition duration-200 hover:bg-[#c5a47e] hover:text-[#263d36]"
+              >
+                Submit Your Enquiry
+                <ArrowUpRight size={18} />
+              </button>
+
+              {submitted && (
+                <p className="text-sm text-[#263d36]">
+                  Your email application should open with your enquiry.
                 </p>
-              </form>
-            </motion.div>
+              )}
+
+              <p className="text-xs leading-6 text-gray-400">
+                Please do not include confidential or sensitive
+                information in your initial enquiry.
+              </p>
+
+            </form>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ================= WHY CONTACT US ================= */}
+
+      <section className="border-y border-[#e9e7df] bg-white py-16 md:py-20">
+        <div className="mx-auto max-w-[1400px] px-5 md:px-10">
+
+          <div className="mb-12 max-w-[600px]">
+            <p className="text-xs font-semibold uppercase tracking-[2px] text-[#a88965]">
+              Our Commitment
+            </p>
+
+            <h2 className="mt-4 text-3xl font-semibold md:text-4xl">
+              A Professional Approach To Every Matter.
+            </h2>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-3">
+
+            <div className="rounded-md border border-[#e9e7df] p-7">
+              <Scale size={27} strokeWidth={1.6} />
+
+              <h3 className="mt-6 text-base font-semibold">
+                Experienced Legal Team
+              </h3>
+
+              <p className="mt-3 text-sm leading-7 text-gray-500">
+                Our team provides professional guidance
+                tailored to your legal requirements.
+              </p>
+            </div>
+
+            <div className="rounded-md border border-[#e9e7df] p-7">
+              <ShieldCheck size={27} strokeWidth={1.6} />
+
+              <h3 className="mt-6 text-base font-semibold">
+                Client-Focused Service
+              </h3>
+
+              <p className="mt-3 text-sm leading-7 text-gray-500">
+                We take time to understand your concerns
+                and explain your available options.
+              </p>
+            </div>
+
+            <div className="rounded-md border border-[#e9e7df] p-7">
+              <MessageSquare size={27} strokeWidth={1.6} />
+
+              <h3 className="mt-6 text-base font-semibold">
+                Clear Communication
+              </h3>
+
+              <p className="mt-3 text-sm leading-7 text-gray-500">
+                We believe in clear communication and
+                keeping clients informed throughout.
+              </p>
+            </div>
+
           </div>
         </div>
       </section>
 
-      {/* OFFICE IMAGE */}
-      <section className="bg-[#f5f5f2] py-20">
-        <div className="mx-auto grid max-w-[1400px] items-center gap-10 px-5 lg:grid-cols-2 lg:px-10">
+      {/* ================= OFFICE LOCATION ================= */}
+
+      <section className="bg-[#faf9f6] py-20 md:py-24">
+        <div className="mx-auto grid max-w-[1400px] items-center gap-12 px-5 md:px-10 lg:grid-cols-2">
+
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[3px] text-[#bd9568]">
-              Our Office
+            <p className="text-xs font-semibold uppercase tracking-[2px] text-[#a88965]">
+              Find Our Office
             </p>
 
-            <h2 className="mt-5 font-serif text-4xl text-[#304f51] md:text-5xl">
-              A Place for Clear Conversations.
+            <h2 className="mt-5 max-w-[500px] text-3xl font-semibold leading-snug md:text-4xl">
+              Visit Us For A Personal Consultation.
             </h2>
 
-            <p className="mt-6 max-w-[500px] leading-8 text-gray-500">
-              We welcome you to meet our team, discuss your concerns
-              and explore the legal options available to you.
+            <p className="mt-5 max-w-[480px] text-sm leading-8 text-gray-500">
+              We welcome clients to our office for appointments
+              and legal consultations. Contact us in advance
+              to arrange a convenient meeting time.
             </p>
 
+            <div className="mt-8 flex items-start gap-4">
+              <MapPin className="mt-1 shrink-0" size={20} />
+
+              <div>
+                <h3 className="text-sm font-semibold">
+                  Office Address
+                </h3>
+
+                <p className="mt-2 text-sm leading-7 text-gray-500">
+                  123 Legal Street, New York,
+                  NY 10001
+                </p>
+              </div>
+            </div>
+
             <a
-              href="https://maps.google.com/?q=123+Legal+Street+New+York"
+              href="https://maps.google.com/?q=New+York"
               target="_blank"
-              rel="noopener noreferrer"
-              className="mt-8 inline-flex items-center gap-4 border-b border-[#bd9568] pb-3 text-xs font-bold uppercase tracking-[2px] text-[#304f51] hover:text-[#bd9568]"
+              rel="noreferrer"
+              className="mt-8 inline-flex items-center gap-3 rounded-[4px] bg-[#263d36] px-7 py-4 text-xs font-semibold uppercase tracking-wider text-white transition hover:bg-[#c5a47e] hover:text-[#263d36]"
             >
-              Find Our Office <span>↗</span>
+              Get Directions
+              <ArrowUpRight size={17} />
             </a>
           </div>
 
-          <div className="relative h-[300px] md:h-[400px]">
-            <Image
-              src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=90"
-              alt="Law firm office interior"
-              fill
-              unoptimized
-              className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 50vw"
+          <div className="h-[300px] overflow-hidden rounded-[4px] border border-[#e9e7df] md:h-[400px]">
+            <iframe
+              title="Office location map"
+              src="https://maps.google.com/maps?q=New%20York&t=&z=13&ie=UTF8&iwloc=&output=embed"
+              className="h-full w-full border-0 grayscale"
+              loading="lazy"
             />
           </div>
+
         </div>
       </section>
 
-      {/* FINAL CTA */}
-      <section className="bg-[#304f51] py-20 md:py-24">
-        <div className="mx-auto max-w-[900px] px-5 text-center">
-          <p className="text-xs font-semibold uppercase tracking-[3px] text-[#d0a16c]">
-            We are Ready to Listen
+      {/* ================= FINAL CTA ================= */}
+
+      <section className="bg-[#263d36] py-16 md:py-20">
+        <div className="mx-auto max-w-[1400px] px-5 text-center md:px-10">
+
+          <p className="text-xs font-semibold uppercase tracking-[2px] text-[#c5a47e]">
+            Need Legal Assistance?
           </p>
 
-          <h2 className="mt-5 font-serif text-4xl leading-tight text-white md:text-6xl">
-            The Right Advice Can
-            <span className="block italic text-[#d0a16c]">
-              Make All the Difference.
-            </span>
+          <h2 className="mx-auto mt-5 max-w-[750px] text-3xl font-semibold leading-tight text-white md:text-5xl">
+            Let&apos;s Find The Right Way Forward Together.
           </h2>
 
-          <p className="mx-auto mt-6 max-w-[600px] leading-8 text-white/70">
-            Take the first step toward resolving your legal matter.
-            Speak with our team today.
+          <p className="mx-auto mt-5 max-w-[600px] text-sm leading-7 text-white/65">
+            Get in touch with our legal team to discuss
+            your requirements and arrange a consultation.
           </p>
 
           <a
             href="tel:+1234567890"
-            className="mt-9 inline-block bg-[#d0a16c] px-10 py-5 text-xs font-bold uppercase tracking-[2px] text-white transition hover:bg-white hover:text-[#304f51]"
+            className="mt-8 inline-flex items-center gap-3 rounded-[4px] bg-[#c5a47e] px-8 py-4 text-xs font-semibold uppercase tracking-wider text-[#263d36] transition hover:bg-white"
           >
-            Call Our Office
+            Speak With Our Team
+            <ArrowUpRight size={17} />
           </a>
+
         </div>
       </section>
+
     </main>
   );
 }

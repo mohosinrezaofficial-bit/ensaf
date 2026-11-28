@@ -1,6 +1,9 @@
 export type LegalService = {
   slug: string;
   title: string;
+  image: string;
+  imageAlt: string;
+  callout: string;
   description: string;
   eyebrow: string;
   lead: string;
@@ -14,6 +17,11 @@ export const legalServices: LegalService[] = [
   {
     slug: "criminal-law",
     title: "Criminal Law",
+    image:
+      "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1400&q=85",
+    imageAlt: "Scales of justice in a law office",
+    callout:
+      "The earlier you understand the process, the more informed your next decisions can be.",
     description:
       "Defense representations for various criminal charges. Investigations, evidence analysis, and bail applications.",
     eyebrow: "Strategic Criminal Defense",
@@ -60,6 +68,11 @@ export const legalServices: LegalService[] = [
   {
     slug: "corporate-law",
     title: "Corporate Law",
+    image:
+      "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1400&q=85",
+    imageAlt: "Modern business meeting room",
+    callout:
+      "Clear agreements help businesses build on shared expectations and reduce uncertainty.",
     description:
       "Professional legal guidance for businesses, corporate governance, contracts, and commercial disputes.",
     eyebrow: "Practical Business Counsel",
@@ -106,6 +119,11 @@ export const legalServices: LegalService[] = [
   {
     slug: "family-law",
     title: "Family Law",
+    image:
+      "https://images.unsplash.com/photo-1474552226712-ac0f0961a954?auto=format&fit=crop&w=1400&q=85",
+    imageAlt: "Family spending time together outdoors",
+    callout:
+      "Every family deserves clarity, dignity, and a fair voice throughout the legal process.",
     description:
       "Experienced legal assistance with family disputes, divorce proceedings, child custody, and family matters.",
     eyebrow: "Compassionate Family Counsel",
@@ -152,6 +170,11 @@ export const legalServices: LegalService[] = [
   {
     slug: "real-estate",
     title: "Real Estate Law",
+    image:
+      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1400&q=85",
+    imageAlt: "Contemporary residential property",
+    callout:
+      "Before you sign or settle, understand what the documents require and protect.",
     description:
       "Legal representation for property transactions, ownership disputes, real estate contracts, and property rights.",
     eyebrow: "Property and Real Estate Counsel",
@@ -198,6 +221,11 @@ export const legalServices: LegalService[] = [
   {
     slug: "personal-injury",
     title: "Personal Injury Law",
+    image:
+      "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=1400&q=85",
+    imageAlt: "Medical professional providing patient care",
+    callout:
+      "Recovery is personal. Legal guidance should take your circumstances into account.",
     description:
       "Dedicated legal representation for personal injury claims, accident cases, compensation, and liability disputes.",
     eyebrow: "Personal Injury Representation",
@@ -244,6 +272,11 @@ export const legalServices: LegalService[] = [
   {
     slug: "health-care",
     title: "Health Care Policy",
+    image:
+      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1400&q=85",
+    imageAlt: "Healthcare professionals discussing patient care",
+    callout:
+      "When the rules are complex, practical guidance can help clarify the path forward.",
     description:
       "Legal support for healthcare regulations, medical compliance, patient rights, and healthcare policy matters.",
     eyebrow: "Health Care Policy and Compliance",
